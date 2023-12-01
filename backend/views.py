@@ -13,50 +13,50 @@ import os
 import base64
 
 
-def original(photo):
-    image = Image.open(photo)
-    np_photo = np.array(image)
-    np_photo = np.rot90(np_photo, k=3)
-    np_photo = cv2.cvtColor(np_photo, cv2.COLOR_RGB2BGR)
-    return np_photo
+# def original(photo):
+#     image = Image.open(photo)
+#     np_photo = np.array(image)
+#     np_photo = np.rot90(np_photo, k=3)
+#     np_photo = cv2.cvtColor(np_photo, cv2.COLOR_RGB2BGR)
+#     return np_photo
 
 
-def mask(ortho_image):
-    return functions.inference.main(ortho_image)
+# def mask(ortho_image):
+#     return functions.inference.main(ortho_image)
 
 
-@csrf_exempt
-def upload_photo(request):
-    if request.method == "POST" and request.FILES["photo"]:
-        start_time = time.time()
-        photo = request.FILES["photo"]
-        original_image = original(photo)
-        masked_image = mask(original_image)
-        _, buffer = cv2.imencode(".jpeg", masked_image)
-        end_time = time.time()
-        print("Total Runtime:", end_time - start_time, "s")
-        return HttpResponse(buffer.tobytes(), content_type="image/jpeg")
-    else:
-        return JsonResponse({"success": False})
+# @csrf_exempt
+# def upload_photo(request):
+#     if request.method == "POST" and request.FILES["photo"]:
+#         start_time = time.time()
+#         photo = request.FILES["photo"]
+#         original_image = original(photo)
+#         masked_image = mask(original_image)
+#         _, buffer = cv2.imencode(".jpeg", masked_image)
+#         end_time = time.time()
+#         print("Total Runtime:", end_time - start_time, "s")
+#         return HttpResponse(buffer.tobytes(), content_type="image/jpeg")
+#     else:
+#         return JsonResponse({"success": False})
 
 
-@csrf_exempt
-def upload_video(request):
-    if request.method == "POST" and request.FILES["video"]:
-        start_time = time.time()
-        video = request.FILES["video"]
-        video_bytes = video.read()
-        temp_path = os.path.join("backend/results", "temp_video.mp4")
-        with open(temp_path, "wb") as f:
-            f.write(video_bytes)
-        video_capture = cv2.VideoCapture(temp_path)
-        image = test_combine.main(video_capture)
-        _, buffer = cv2.imencode(".jpeg", image)
-        end_time = time.time()
-        print("Total Runtime:", end_time - start_time, "s")
-        return HttpResponse(buffer.tobytes(), content_type="image/jpeg")
-    else:
-        return JsonResponse({"success": False})
+# @csrf_exempt
+# def upload_video(request):
+#     if request.method == "POST" and request.FILES["video"]:
+#         start_time = time.time()
+#         video = request.FILES["video"]
+#         video_bytes = video.read()
+#         temp_path = os.path.join("backend/results", "temp_video.mp4")
+#         with open(temp_path, "wb") as f:
+#             f.write(video_bytes)
+#         video_capture = cv2.VideoCapture(temp_path)
+#         image = test_combine.main(video_capture)
+#         _, buffer = cv2.imencode(".jpeg", image)
+#         end_time = time.time()
+#         print("Total Runtime:", end_time - start_time, "s")
+#         return HttpResponse(buffer.tobytes(), content_type="image/jpeg")
+#     else:
+#         return JsonResponse({"success": False})
 
 
 @csrf_exempt
