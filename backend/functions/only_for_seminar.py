@@ -7,8 +7,8 @@ import os
 import base64
 import cv2
 import numpy as np
-import time
-import io
+# import time
+# import io
 import uuid
 from datetime import date
 from datetime import datetime
