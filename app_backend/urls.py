@@ -20,9 +20,9 @@ from backend import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('upload/', views.upload_photo, name='upload_photo'),
+    # path('upload/', views.upload_photo, name='upload_photo'),
     path('login/', views.login, name='login'),
-    path('uploadvideo/', views.upload_video, name='upload_video'),
+    # path('uploadvideo/', views.upload_video, name='upload_video'),
     path('uploadlocation/', views.upload_location, name='upload_location'),
     path('uploadid/', views.upload_ID, name='upload_id'),
     path('uploadImageForSeminar/', views.upload_photo_for_seminar, name='upload_photo_for_seminar'),
